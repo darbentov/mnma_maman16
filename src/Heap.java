@@ -12,11 +12,14 @@ public class Heap {
     final static int MAX = 0;
     final static int MIN = 1;
     final private static int defaultSize = 10;
+
+    // declaring class variables
     int heapType;
     public int heapSize;
     private int[] heap;
-    // Constructors
 
+
+    // Constructors
     /**
      * creates a new Heap object
      */
@@ -32,10 +35,18 @@ public class Heap {
         this(defaultSize);
     }
 
+    /**
+     * Checks if the heap is empty.
+     * @return true/false
+     */
     public boolean isEmpty() {
         return heapSize == 0;
     }
 
+    /**
+     * Get the top element of the heap.
+     * @return top element of the heap.
+     */
     public int getTop() {
         return isEmpty() ? 0 : heap[0];
     }
@@ -53,12 +64,25 @@ public class Heap {
         }
     }
 
-    private void swap(int index, int parentIndex) {
-        int temp = heap[index];
-        heap[index] = heap[parentIndex];
-        heap[parentIndex] = temp;
+    /**
+     * Swaps 2 elements in the array.
+     * @param indexA index of the first element.
+     * @param indexB index of the second element.
+     */
+    private void swap(int indexA, int indexB) {
+        int temp = heap[indexA];
+        heap[indexA] = heap[indexB];
+        heap[indexB] = temp;
     }
 
+    /**
+     * Checks if a child element breaks the heap.
+     * If this is a max heap, it checks if the child is greater than the parent.
+     * If this is a min heap, it checks if ths child is lower than the parent.
+     * @param child
+     * @param parent
+     * @return
+     */
     private boolean breaks(int child, int parent) {
         if (heapType == MAX) {
             return child > parent;
@@ -85,18 +109,26 @@ public class Heap {
         return temp;
     }
 
+    /**
+     * Given a tree that is a heap except for node index,
+     * This method arranges node index and it’s subtrees to satisfy the heap property.
+     * @param index
+     */
     private void topHeapify(int index) {
         int top;
         int l = left(index);
         int r = right(index);
+        // If the left node exists and it breaks the heap that the node index is its parent, left node should be top
         if (l <= heapSize && breaks(heap[l], heap[index])) {
             top = l;
         } else {
             top = index;
         }
+        // If the right node exists and it breaks the heap that the node index is its parent, right node should be top
         if (r <= heapSize && breaks(heap[r], heap[top])) {
             top = r;
         }
+        // If the top is not the index, swap
         if (top != index) {
             swap(index, top);
             topHeapify(top);
