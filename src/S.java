@@ -1,7 +1,8 @@
-import java.util.PriorityQueue;
-
 public class S {
+    // Constants
     private final static int sizeOffset = 2;
+
+    // Declaring class variables
     private MaxHeap h1;
     private MinHeap h2;
 
@@ -13,8 +14,8 @@ public class S {
         h2 = new MinHeap(size / 2 + sizeOffset);
     }
 
-    /*
-    Insert an element to the DS
+    /**
+    Insert an element to the DS.
      */
     public void insert(int z) {
         if (h1.isEmpty()) {
@@ -24,17 +25,11 @@ public class S {
         } else {
             h2.insert(z);
         }
-//        System.out.println("Before balance:");
-//        System.out.println(h1.toString());
-//        System.out.println(h2.toString());
         if (h2.heapSize > h1.heapSize) {
             balance(h2, h1);
         } else if (h1.heapSize - h2.heapSize > 1) {
             balance(h1, h2);
         }
-//        System.out.println("After balance:");
-//        System.out.println(h1.toString());
-//        System.out.println(h2.toString());
     }
 
     private void balance(Heap source, Heap target) {
@@ -42,6 +37,9 @@ public class S {
         target.insert(temp);
     }
 
+    /**
+     * Print the median of the DS
+     */
     public void printMedian() {
         System.out.println(h1.getTop());
     }
