@@ -1,3 +1,5 @@
+import java.util.PriorityQueue;
+
 public class S {
     private final static int sizeOffset = 2;
     private MaxHeap h1;
@@ -22,11 +24,17 @@ public class S {
         } else {
             h2.insert(z);
         }
+//        System.out.println("Before balance:");
+//        System.out.println(h1.toString());
+//        System.out.println(h2.toString());
         if (h2.heapSize > h1.heapSize) {
             balance(h2, h1);
         } else if (h1.heapSize - h2.heapSize > 1) {
             balance(h1, h2);
         }
+//        System.out.println("After balance:");
+//        System.out.println(h1.toString());
+//        System.out.println(h2.toString());
     }
 
     private void balance(Heap source, Heap target) {

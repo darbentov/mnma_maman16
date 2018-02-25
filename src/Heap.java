@@ -79,9 +79,9 @@ public class Heap {
      * Checks if a child element breaks the heap.
      * If this is a max heap, it checks if the child is greater than the parent.
      * If this is a min heap, it checks if ths child is lower than the parent.
-     * @param child
-     * @param parent
-     * @return
+     * @param child child element
+     * @param parent parent element
+     * @return true if child breaks the heap
      */
     private boolean breaks(int child, int parent) {
         if (heapType == MAX) {
@@ -105,33 +105,33 @@ public class Heap {
         heap[0] = heap[heapSize - 1];
         heap[heapSize - 1] = 0;
         heapSize--;
-        topHeapify(0);
+        heapifyDown(0);
         return temp;
     }
 
     /**
-     * Given a tree that is a heap except for node index,
-     * This method arranges node index and it’s subtrees to satisfy the heap property.
-     * @param index
+     * Given a tree that is a heap except for node i,
+     * This method arranges node i and it’s subtrees to satisfy the heap property.
+     * @param i
      */
-    private void topHeapify(int index) {
+    private void heapifyDown(int i) {
         int top;
-        int l = left(index);
-        int r = right(index);
-        // If the left node exists and it breaks the heap that the node index is its parent, left node should be top
-        if (l <= heapSize && breaks(heap[l], heap[index])) {
+        int l = left(i);
+        int r = right(i);
+        // If the left node exists and it breaks the heap that the node i is its parent, left node should be top
+        if (l <= heapSize - 1 && breaks(heap[l], heap[i])) {
             top = l;
         } else {
-            top = index;
+            top = i;
         }
-        // If the right node exists and it breaks the heap that the node index is its parent, right node should be top
-        if (r <= heapSize && breaks(heap[r], heap[top])) {
+        // If the right node exists and it breaks the heap that the node i is its parent, right node should be top
+        if (r <= heapSize - 1 && breaks(heap[r], heap[top])) {
             top = r;
         }
-        // If the top is not the index, swap
-        if (top != index) {
-            swap(index, top);
-            topHeapify(top);
+        // If the top is not the i, swap
+        if (top != i) {
+            swap(i, top);
+            heapifyDown(top);
         }
     }
 

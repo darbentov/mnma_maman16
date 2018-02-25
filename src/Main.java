@@ -8,6 +8,7 @@ public class Main {
                 s.printMedian();
             }
         }
+        System.out.println(s.toString());
 
     }
 }
