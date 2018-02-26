@@ -1,29 +1,34 @@
+import java.util.Arrays;
 import java.util.Random;
+
+/**
+ * This class is used for testing
+ *
+ * @author Dar Ben-Tov & David Dadon.
+ * @version (2018)
+ */
 
 public class Test {
     public static void main(String args[]) {
-        int arr1[] = new int[200];
-        int arr2[] = new int[300];
-        int arr3[] = new int[400];
-        int arr4Size = 20;
-        int arr4[] = new int[arr4Size];
+        int arr1Size = 200;
+        int arr2Size = 300;
+        int arr3Size = 400;
+        int arr1[] = new int[arr1Size];
+        int arr2[] = new int[arr2Size];
+        int arr3[] = new int[arr3Size];
         Random rand = new Random();
-        for (int i = 0; i < arr4Size; i++){
-            arr4[i] = rand.nextInt(1024);
-        }
-        Main.main(arr4, arr4Size /4, arr4Size /2, 3* arr4Size /4);
 
-//        for (int i = 0; i < 200; i++){
-//            arr1[i] = rand.nextInt(1024);
-//        }
-//        Main.main(arr1, 200/4, 200/2, 3*200/4);
-//        for (int i = 0; i < 300; i++){
-//            arr2[i] = rand.nextInt(1024);
-//        }
-//        Main.main(arr2, 300/4, 300/2, 3*300/4);
-//        for (int i = 0; i < 400; i++){
-//            arr3[i] = rand.nextInt(1024);
-//        }
-//        Main.main(arr3, 400/4, 400/2, 3*400/4);
+        for (int i = 0; i < arr1Size; i++){
+            arr1[i] = rand.nextInt(1024);
+        }
+        Main.main(arr1, arr1Size /4, arr1Size /2, 3* arr1Size /4);
+        for (int i = 0; i < arr2Size; i++){
+            arr2[i] = rand.nextInt(1024);
+        }
+        Main.main(arr2, arr2Size /4, arr2Size /2, 3* arr2Size /4);
+        for (int i = 0; i < arr3Size; i++){
+            arr3[i] = rand.nextInt(1024);
+        }
+        Main.main(arr3, arr3Size /4, arr3Size /2, 3* arr3Size /4);
     }
 }
