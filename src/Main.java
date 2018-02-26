@@ -6,7 +6,7 @@
  */
 
 public class Main {
-    public static S main(int[] arr, int n1, int n2, int n3) {
+    public static void main(int[] arr, int n1, int n2, int n3) {
         // Initializing the DS with the length of the array.
         S s = new S(arr.length);
         // Iterating in the array
@@ -18,10 +18,7 @@ public class Main {
                 System.out.print(i + 1);
                 System.out.print(": ");
                 s.printMedian();
-                System.out.println(s.toString());
             }
         }
-        // Return s for testing purposes.
-        return s;
     }
 }

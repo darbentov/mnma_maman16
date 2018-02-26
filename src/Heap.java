@@ -15,6 +15,7 @@ public class Heap {
 
     // declaring class variables
     int heapType;
+    int capacity;
     public int heapSize;
     private int[] heap;
 
@@ -26,14 +27,9 @@ public class Heap {
     Heap(int size) {
         heapSize = 0;
         heap = new int[size];
+        capacity = size;
     }
 
-    /**
-     * creates a new Heap object with default size
-     */
-    Heap() {
-        this(defaultSize);
-    }
 
     /**
      * Checks if the heap is empty.
@@ -55,13 +51,17 @@ public class Heap {
      * Propagate up the element of the current index if it breaks the heap
      */
     private void heapifyUp(int index) {
-        if (index != 0) {
-            int parentIndex = index / 2;
-            if (breaks(heap[index], heap[parentIndex])) {
-                swap(index, parentIndex);
-                heapifyUp(parentIndex);
+        if (index != 0) { // If the given index is not the top index
+            int parentIndex = parent(index); // Get the parent index
+            if (breaks(heap[index], heap[parentIndex])) { // If the child breaks the Heap Property
+                swap(index, parentIndex); // Swap between child and parent.
+                heapifyUp(parentIndex); // Run heapifyUp on parent index.
             }
         }
+    }
+
+    private int parent(int index) {
+        return index / 2;
     }
 
     /**
@@ -85,8 +85,10 @@ public class Heap {
      */
     private boolean breaks(int child, int parent) {
         if (heapType == MAX) {
+            // If heapType is Max, the child breaks the Heap if it is greater than it's parent.
             return child > parent;
         } else {
+            // If heapType is Min, the child breaks the Heap if it is lower than it's parent.
             return child < parent;
         }
     }
@@ -95,23 +97,30 @@ public class Heap {
      * Insert an element to the heap
      */
     public void insert(int z) {
+        if (heapSize >= capacity){
+            throw new ArrayIndexOutOfBoundsException("The heap has reached its capacity.");
+        }
         heap[heapSize] = z;
         heapifyUp(heapSize);
         heapSize++;
     }
 
+    /**
+     * Extract the top element of the Heap.
+     * @return the top element of the Heap.
+     */
     public int extractTop() {
-        int temp = heap[0];
-        heap[0] = heap[heapSize - 1];
-        heap[heapSize - 1] = 0;
-        heapSize--;
-        heapifyDown(0);
+        int temp = heap[0]; // put the top element on temp
+        heap[0] = heap[heapSize - 1]; // put the last element of the Heap as the top element.
+        heapSize--; // Reduce the size of the Heap.
+        heapifyDown(0); // Fix the Heap by running heapifyDown algorithm, with 0 as the index.
         return temp;
     }
 
     /**
      * Given a tree that is a heap except for node i,
      * This method arranges node i and it’s subtrees to satisfy the heap property.
+     * The algorithm matches the algorithm that has been taught in the book.
      * @param i
      */
     private void heapifyDown(int i) {
@@ -119,13 +128,13 @@ public class Heap {
         int l = left(i);
         int r = right(i);
         // If the left node exists and it breaks the heap that the node i is its parent, left node should be top
-        if (l <= heapSize - 1 && breaks(heap[l], heap[i])) {
+        if (exists(l) && breaks(heap[l], heap[i])) {
             top = l;
         } else {
             top = i;
         }
         // If the right node exists and it breaks the heap that the node i is its parent, right node should be top
-        if (r <= heapSize - 1 && breaks(heap[r], heap[top])) {
+        if (exists(r) && breaks(heap[r], heap[top])) {
             top = r;
         }
         // If the top is not the i, swap
@@ -135,16 +144,34 @@ public class Heap {
         }
     }
 
+    private boolean exists(int index) {
+        return index <= heapSize - 1;
+    }
+
+    /**
+     * Calculate the left child index of the given index
+     * @param index The index of parent node.
+     * @return The left child index of the parent node.
+     */
     private int left(int index) {
         return index * 2 + 1;
     }
 
+    /**
+     * Calculate the right child index of the given index
+     * @param index The index of parent node.
+     * @return The right child index of the parent node.
+     */
     private int right(int index) {
         return index * 2 + 2;
     }
 
+    /**
+     * Converts the Heap to string, by extracting the array by HeapSize.
+     * @return
+     */
     public String toString() {
-        return Arrays.toString(heap);
+        return Arrays.toString(Arrays.copyOfRange(heap, 0, heapSize));
     }
 
 

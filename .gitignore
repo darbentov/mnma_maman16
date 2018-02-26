@@ -3,7 +3,7 @@
 .idea/vcs.xml
 .idea/workspace.xml
 
-out
-out/*
+./out
+./out/*
 
 *~
