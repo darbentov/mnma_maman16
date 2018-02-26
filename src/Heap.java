@@ -11,7 +11,6 @@ public class Heap {
     // setting constants;
     final static int MAX = 0;
     final static int MIN = 1;
-    final private static int defaultSize = 10;
 
     // declaring class variables
     int heapType;
